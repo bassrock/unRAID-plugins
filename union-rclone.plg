@@ -9,7 +9,7 @@
         <!ENTITY repo           "https://raw.githubusercontent.com/&author;/unRaid-Union/master">
         <!ENTITY pluginURL        "&repo;/union-rclone.plg">
         <!ENTITY rcloneBundleVersion    "2017.01.05">
-        <!ENTITY rcloneBundleURL    "&repo;/archive/rclone-&rcloneBundleVersion;-x86_64-1.txz">
+        <!ENTITY rcloneBundleURL    "&repo;/packages/rclone-&rcloneBundleVersion;-x86_64-1.txz">
         <!ENTITY rcloneversion    "v1.41">
         <!ENTITY rclonefile    "rclone-&rcloneversion;-linux-amd64">
         <!ENTITY rcloneurl        "http://downloads.rclone.org/&rcloneversion;/&rclonefile;.zip">
