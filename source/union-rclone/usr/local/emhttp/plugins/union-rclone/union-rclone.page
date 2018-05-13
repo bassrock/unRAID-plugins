@@ -3,8 +3,7 @@ Title="rclone-union"
 Icon="union-rclone.png"
 ---
 <?PHP
-/* Copyright 2005-2016, Lime Technology
- * Copyright 2012-2016, Bergware International.
+/* Copyright 2018, bassrock
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License version 2,
@@ -14,7 +13,7 @@ Icon="union-rclone.png"
  * all copies or substantial portions of the Software.
  */
 ?>
-> Use this page to make changes to your `rclone.conf` file as well as the different included scripts.
+> Use this page to make changes to your `rclone.conf` or `config.json` file as well as the different included scripts.
 >
 > The **Move to User Scripts** button will move the active script to the User Scripts Plugin overwriting any previous version of the included script.
 
@@ -38,10 +37,10 @@ File to edit:
 <form action="" method="post"> 
 <select name="choice" onchange="this.form.submit();"> 
 <option value="1" <?php echo (isset($_POST['choice']) && $_POST['choice'] == '1') ? 'selected="selected"' : ''; ?>>Rclone Config</option>
-<option value="1" <?php echo (isset($_POST['choice']) && $_POST['choice'] == '2') ? 'selected="selected"' : ''; ?>>CloudPow Config</option>
-<option value="2" <?php echo (isset($_POST['choice']) && $_POST['choice'] == '3') ? 'selected="selected"' : ''; ?>>Rclone Custom Script</option>
-<option value="3" <?php echo (isset($_POST['choice']) && $_POST['choice'] == '4') ? 'selected="selected"' : ''; ?>>Mount Script</option>
-<option value="4" <?php echo (isset($_POST['choice']) && $_POST['choice'] == '5') ? 'selected="selected"' : ''; ?>>Unmount Script</option>
+<option value="2" <?php echo (isset($_POST['choice']) && $_POST['choice'] == '2') ? 'selected="selected"' : ''; ?>>CloudPow Config</option>
+<option value="3" <?php echo (isset($_POST['choice']) && $_POST['choice'] == '3') ? 'selected="selected"' : ''; ?>>Rclone Custom Script</option>
+<option value="4" <?php echo (isset($_POST['choice']) && $_POST['choice'] == '4') ? 'selected="selected"' : ''; ?>>Mount Script</option>
+<option value="5" <?php echo (isset($_POST['choice']) && $_POST['choice'] == '5') ? 'selected="selected"' : ''; ?>>Unmount Script</option>
 </select> 
 </form> 
 
@@ -87,7 +86,7 @@ function setDefault(form) {
 <input type="hidden" name="#include" value="/webGui/include/update.file.php">
 : <input type="hidden" name="#file" value="<?=$file;?>">
 
-<input type="button" value="Move to User Scripts" <?php if ($file == '/boot/config/plugins/union-rclone/.rclone.conf'){ ?> disabled <?php   } ?> onclick="copyscript('<?php echo $folderpath; ?>')">
+<input type="button" value="Move to User Scripts" <?php if ($file == '/boot/config/plugins/union-rclone/.rclone.conf' || $file == '/boot/config/plugins/union-rclone/config.json'){ ?> disabled <?php   } ?> onclick="copyscript('<?php echo $folderpath; ?>')">
 : <textarea spellcheck="false" cols="80" rows="22" maxlength="2048" name="text" style="font-family:bitstream;width:66%"><?=$text;?></textarea>
 
 &nbsp;
