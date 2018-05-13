@@ -8,12 +8,13 @@
         <!ENTITY launch            "Settings/union-rclone">
         <!ENTITY repo           "https://raw.githubusercontent.com/&author;/unRAID-plugins/master">
         <!ENTITY pluginURL        "&repo;/plugin/union-rclone.plg">
-        <!ENTITY bundleURL    "&repo;/archive/rclone-&bundleversion;-x86_64-1.txz">
-        <!ENTITY rcloneversion    "v1.35">
+        <!ENTITY rcloneBundleVersion    "2017.01.05">
+        <!ENTITY rcloneBundleURL    "&repo;/archive/rclone-&rcloneBundleVersion;-x86_64-1.txz">
+        <!ENTITY rcloneversion    "v1.41">
         <!ENTITY rclonefile    "rclone-&rcloneversion;-linux-amd64">
         <!ENTITY rcloneurl        "http://downloads.rclone.org/&rclonefile;.zip">
-        <!ENTITY md5            "398d20b3c849e5c20d0a9c1db8d25bfd">
-        <!ENTITY md5bundle        "3a2125ad6e70ffbd1f8cad24e27035b2">
+        <!ENTITY rcloneMD5            "deea5bde153f1e53870c87785b50d8d4">
+        <!ENTITY rcloneMD5bundle        "3a2125ad6e70ffbd1f8cad24e27035b2">
         ]>
 
 <PLUGIN name="&name;"
@@ -31,8 +32,8 @@
     <!--
     Install UnionFs
     -->
-    <FILE Name="&name;/packages/unionfs-fuse-&version;-x86_64-1dj.txz" Run="/sbin/upgradepkg --install-new">
-        <URL>&repo;/packages/unionfs-fuse-&version;-x86_64-1dj.txz</URL>
+    <FILE Name="&name;/packages/unionfs-fuse-0.26-x86_64-1dj.txz" Run="/sbin/upgradepkg --install-new">
+        <URL>&repo;/packages/unionfs-fuse-0.26-x86_64-1dj.txz</URL>
         <MD5>f319bb542173f109d69b1e87f0d39a37</MD5>
     </FILE>
 
@@ -42,16 +43,16 @@
     -->
     <FILE Name="/boot/config/plugins/&name;/install/rclone-&rcloneversion;.zip">
         <URL>&rcloneurl;</URL>
-        <MD5>&md5;</MD5>
+        <MD5>&rcloneMD5;</MD5>
     </FILE>
 
 
     <!--
     Get bundle.
     -->
-    <FILE Name="/boot/config/plugins/&name;/install/rclone-&bundleversion;-bundle.txz" Run="upgradepkg --install-new">
-        <URL>&bundleURL;</URL>
-        <MD5>&md5bundle;</MD5>
+    <FILE Name="/boot/config/plugins/&name;/install/rclone-&rcloneBundleVersion;-bundle.txz" Run="upgradepkg --install-new">
+        <URL>&rcloneBundleURL;</URL>
+        <MD5>&rcloneMD5bundle;</MD5>
     </FILE>
 
     <!--
