@@ -93,7 +93,6 @@
             fi;
 
             rm -f $(ls /boot/config/plugins/&name;/install/rclone*.zip 2>/dev/null | grep -v '&rcloneversion;')
-            rm -f $(ls /boot/config/plugins/&name;/install/rclone*.txz 2>/dev/null | grep -v '&bundleversion;')
 
             unzip /boot/config/plugins/&name;/install/rclone-&rcloneversion;.zip -d /boot/config/plugins/&name;/install/
 
@@ -154,13 +153,10 @@
     <!-- PLUGIN REMOVAL SCRIPT -->
     <FILE Run="/bin/bash" Method="remove">
         <INLINE>
-            # Remove installed packages
-            find "&packages;/" -type f -iname "*.txz" -delete
 
             # Remove possible leftovers
             rm -rf /usr/local/emhttp/plugins/&name; \
-            /var/state/&name; \
-            &packages;
+            /var/state/&name;
 
             rm -rf /boot/config/plugins/&name;/install
             rm -f /usr/sbin/rclone;
