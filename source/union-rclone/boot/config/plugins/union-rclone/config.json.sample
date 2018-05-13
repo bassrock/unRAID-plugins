@@ -42,7 +42,7 @@
         }
       },
       "remove_empty_dir_depth": 2,
-      "sync_remote": "google-cryptic:/Media",
+      "sync_remote": "google-cryptic:",
       "upload_folder": "/mnt/user/media",
       "upload_remote": "google-cryptic:"
     }
