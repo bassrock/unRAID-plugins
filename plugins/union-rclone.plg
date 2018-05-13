@@ -113,11 +113,78 @@
 
             mkdir -p /mnt/disks/;
 
+
+
+
+            #Verify unRAID Version
+            source /etc/unraid-version
+            VER=${version:0:3}
+            if [[ $VER == 6.0 ]]; then
+            echo "unRAID version 6.1 or higher is required"
+            exit 1
+            fi
+
+            # Verify and install plugin package
+            sum1=$(/usr/bin/md5sum &plgPATH;/&plgNAME;.txz)
+            sum2=$(/usr/bin/cat &plgPATH;/&plgNAME;.md5)
+            if [ "${sum1:0:32}" != "${sum2:0:32}" ]; then
+            echo "Wrong 'plugin' package md5 hash."
+            rm &plgPATH;/&plgNAME;.txz \
+            &plgPATH;/&plgNAME;.md5
+            exit 1
+            else
+            count=`ls -1 /boot/config/plugins/NerdPack/packages/*.txz 2>/dev/null | wc -l`
+            if [ $count != 0 ]; then
+            if [ ! -d &plgPATH;/packages/6.1 ]; then
+            mkdir -p &plgPATH;/packages/6.1
+            fi
+            echo "Moving package files..."
+            mv  &plgPATH;/packages/*txz  &plgPATH;/packages/6.1
+            fi
+
+            if [ ! -d &plgPATH;/packages/$VER ]; then
+            echo "Creating package directory.."
+            mkdir -p &plgPATH;/packages/$VER
+
+            #check for previous version
+            OLD=$(echo | awk "{print ${VER} - 0.1}")
+            if [ -d &plgPATH;/packages/${OLD} ]; then
+            count2=`ls -1 /boot/config/plugins/NerdPack/packages/${OLD}/*.txz 2>/dev/null | wc -l`
+            if [ $count2 != 0 ]; then
+            echo "Copying package files..."
+            cp &plgPATH;/packages/${OLD}/* &plgPATH;/packages/${VER}/
+            fi
+            else
+            #check for two versions ago
+            OLD2=$(echo | awk "{print ${VER} - 0.2}")
+            if [ -d &plgPATH;/packages/${OLD2} ]; then
+            count3=`ls -1 /boot/config/plugins/NerdPack/packages/${OLD2}/*.txz 2>/dev/null | wc -l`
+            if [ $count3 != 0 ]; then
+            echo "Copying package files..."
+            cp &plgPATH;/packages/${OLD2}/* &plgPATH;/packages/${VER}/
+            fi
+            fi
+            fi
+            fi
+
+            upgradepkg --install-new &plgPATH;/&plgNAME;.txz
+
+            /usr/sbin/packagemanager
+
+            # Cleaning old source files
+            find &plgPATH;/ -type f -iname "&name;*.txz" ! -iname "*&version;*" -delete
+            find &plgPATH;/ -type f -iname "&name;*.md5" ! -iname "*&version;*" -delete
+
             echo ""
             echo "-----------------------------------------------------------"
             echo " &name; has been installed."
+            echo " This plugin requires Dynamix webGui to operate"
+            echo " Copyright 2016-2017, &author;, eschultz"
+            echo " Version: &version;"
             echo "-----------------------------------------------------------"
             echo ""
+            fi
+
 
         </INLINE>
     </FILE>
