@@ -1,19 +1,21 @@
 <?xml version='1.0' standalone='yes'?>
 
 <!DOCTYPE PLUGIN [
-        <!ENTITY name            "union-rclone">
-        <!ENTITY author            "bassrock">
-        <!ENTITY version        "2018.05.10">
-        <!ENTITY bundleversion  "2018.05.10">
-        <!ENTITY launch            "Settings/union-rclone">
-        <!ENTITY repo           "https://raw.githubusercontent.com/&author;/unRaid-Union/master">
-        <!ENTITY pluginURL        "&repo;/union-rclone.plg">
+        <!ENTITY name      "union-rclone">
+        <!ENTITY author    "bassrock">
+        <!ENTITY version   "2018.05.12">
+        <!ENTITY launch    "Settings/&name;">
+        <!ENTITY gitURL    "https://raw.githubusercontent.com/&author;/unRAID-plugins/master">
+        <!ENTITY pluginURL "&gitURL;/plugins/&name;.plg">
+        <!ENTITY pkgURL    "&gitURL;/source/packages">
+        <!ENTITY plgPATH   "/boot/config/plugins/&name;">
+        <!ENTITY plgNAME   "&name;-&version;-x86_64-1">
+        <!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
         <!ENTITY rcloneversion    "v1.41">
         <!ENTITY rclonefile    "rclone-&rcloneversion;-linux-amd64">
         <!ENTITY rcloneMD5            "deea5bde153f1e53870c87785b50d8d4">
-        <!ENTITY plugin    "/boot/config/plugins/&name;">
-        <!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
         ]>
+
 
 <PLUGIN name="&name;"
         author="&author;"
@@ -27,47 +29,50 @@
         - Initial release.
     </CHANGES>
 
+
+    <!--
+    The 'pre-install' script.
+    -->
+    <FILE Run="/bin/bash">
+        <INLINE>
+            # Remove emhttp files so we can re-install.
+            rm -rf /usr/local/emhttp/plugins/&name;/* 2>/dev/null
+        </INLINE>
+    </FILE>
+
+
+    <!--
+    The 'plugin' package file.
+    -->
+    <FILE Name="&plgPATH;/&plgNAME;.txz">
+        <URL>&gitURL;/archive/&plgNAME;.txz</URL>
+    </FILE>
+
+    <!--
+    The 'plugin' package MD5 hash.
+    -->
+    <FILE Name="&plgPATH;/&plgNAME;.md5">
+        <URL>&gitURL;/archive/&plgNAME;.md5</URL>
+    </FILE>
+
     <!--
     Install UnionFs
     -->
     <FILE Name="&name;/packages/unionfs-fuse-0.26-x86_64-1dj.txz" Run="/sbin/upgradepkg --install-new">
-        <URL>&repo;/packages/unionfs-fuse-0.26-x86_64-1dj.txz</URL>
+        <URL>&gitURL;/packages/unionfs-fuse-0.26-x86_64-1dj.txz</URL>
         <MD5>f319bb542173f109d69b1e87f0d39a37</MD5>
     </FILE>
 
     <!--
     Install the latest rclone
     -->
-    <FILE Name="&plugin;/install/rclone-&rcloneversion;.zip">
+    <FILE Name="&plgPATH;/install/rclone-&rcloneversion;.zip">
         <URL>http://downloads.rclone.org/&rcloneversion;/&rclonefile;.zip</URL>
         <MD5>&rcloneMD5;</MD5>
     </FILE>
 
 
-    <FILE Name="&plugin;/union-rclone.png">
-        <URL>&repo;/union-rclone.png</URL>
-    </FILE>
 
-
-
-    <!--
-    emhttp install
-    -->
-    <FILE Name="&emhttp;/union-rclone.png">
-        <LOCAL>/&plugin;/union-rclone.png</LOCAL>
-    </FILE>
-
-    <FILE Name="&emhttp;/copy.php">
-        <URL>&repo;/source/union-rclone&emhttp;/copy.php</URL>
-    </FILE>
-
-    <FILE Name="&emhttp;/README.md">
-        <URL>&repo;/source/union-rclone&emhttp;/README.md</URL>
-    </FILE>
-
-    <FILE Name="&emhttp;/union-rclone.page">
-        <URL>&repo;/source/union-rclone&emhttp;/union-rclone.page</URL>
-    </FILE>
 
 
 
@@ -104,8 +109,8 @@
             fi;
 
             mkdir -p /boot/config/plugins/&name;/logs;
-            mkdir -p /boot/config/plugins/union-rclone/scripts;
-            cp /boot/config/plugins/union-rclone/install/scripts/* /boot/config/plugins/union-rclone/scripts/ -R -n;
+            mkdir -p /boot/config/plugins/&name;/scripts;
+            cp /boot/config/plugins/&name;/install/scripts/* /boot/config/plugins/&name;/scripts/ -R -n;
 
             mkdir -p /mnt/disks/;
 
@@ -149,15 +154,22 @@
     <!-- PLUGIN REMOVAL SCRIPT -->
     <FILE Run="/bin/bash" Method="remove">
         <INLINE>
+            # Remove installed packages
+            find "&packages;/" -type f -iname "*.txz" -delete
+
+            # Remove possible leftovers
+            rm -rf /usr/local/emhttp/plugins/&name; \
+            /var/state/&name; \
+            &packages;
+
             rm -rf /boot/config/plugins/&name;/install
             rm -f /usr/sbin/rclone;
             rm -f /etc/ssl/certs/ca-certificates.crt
 
-            removepkg rclone-&bundleversion;-bundle >/dev/null
+            removepkg unionfs-fuse-0.26-x86_64-1dj >/dev/null
 
-            # we keep config and logs
-            #rm -f /boot/config/plugins/&name;/.rclone.conf;
-            #rm -f /boot/config/plugins/&name;/logs;
+            # Remove the logs directory.
+            rm -r /tmp/&name; 2>/dev/null
 
             echo ""
             echo "-----------------------------------------------------------"
