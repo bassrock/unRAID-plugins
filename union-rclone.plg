@@ -6,8 +6,8 @@
 <!ENTITY version   		"2018.05.10">
 <!ENTITY bundleversion   	"2018.05.10">
 <!ENTITY launch    		"Settings/union-rclone">
-<!ENTITY pluginURL 		"https://raw.githubusercontent.com/bassrock/unRaid-Unionmaster/plugin/union-rclone.plg">
-<!ENTITY bundleURL  		"https://raw.githubusercontent.com/bassrock/unRaid-Unionmaster/archive/rclone-&bundleversion;-x86_64-1.txz">
+<!ENTITY pluginURL 		"https://raw.githubusercontent.com/bassrock/unRaid-Union/master/plugin/union-rclone.plg">
+<!ENTITY bundleURL  		"https://raw.githubusercontent.com/bassrock/unRaid-Union/master/archive/rclone-&bundleversion;-x86_64-1.txz">
 <!ENTITY rcloneversion		"v1.35">
 <!ENTITY rclonefile  		"rclone-&rcloneversion;-linux-amd64">
 <!ENTITY rcloneurl		"http://downloads.rclone.org/&rclonefile;.zip">
