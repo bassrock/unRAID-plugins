@@ -3,7 +3,7 @@
 <!DOCTYPE PLUGIN [
         <!ENTITY name      "union-rclone">
         <!ENTITY author    "bassrock">
-        <!ENTITY version   "2018.05.12d">
+        <!ENTITY version   "2018.05.12e">
         <!ENTITY launch    "Settings/&name;">
         <!ENTITY gitURL    "https://raw.githubusercontent.com/&author;/unRAID-plugins/master">
         <!ENTITY pluginURL "&gitURL;/plugins/&name;.plg">
@@ -140,6 +140,9 @@
             find &plgPATH;/ -type f -iname "&name;*.txz" ! -iname "*&version;*" -delete
             find &plgPATH;/ -type f -iname "&name;*.md5" ! -iname "*&version;*" -delete
 
+
+            cd $plgPATH;
+
             echo ""
             echo "-----------------------------------------------------------"
             echo " &name; has been installed."
@@ -198,7 +201,8 @@
             # Remove the logs directory.
             rm -r /tmp/&name; 2>/dev/null
 
-            rm -rf &plgPATH;
+            cd &plgPATH;
+            python3 -m pip install -r requirements.txt
 
             echo ""
             echo "-----------------------------------------------------------"
