@@ -3,7 +3,7 @@
 <!DOCTYPE PLUGIN [
         <!ENTITY name      "union-rclone">
         <!ENTITY author    "bassrock">
-        <!ENTITY version   "2018.05.13a">
+        <!ENTITY version   "2018.05.13b">
         <!ENTITY launch    "Settings/&name;">
         <!ENTITY gitURL    "https://raw.githubusercontent.com/&author;/unRAID-plugins/master">
         <!ENTITY pluginURL "&gitURL;/plugins/&name;.plg">
@@ -107,7 +107,11 @@
             cp &plgPATH;/install/ca-certificates.crt /etc/ssl/certs/
 
             if [ ! -f /boot/config/plugins/&name;/.rclone.conf ]; then
-            touch /boot/config/plugins/&name;/.rclone.conf;
+            cp /boot/config/plugins/&name;/.rclone.conf.sample /boot/config/plugins/&name;/.rclone.conf;
+            fi;
+
+            if [ ! -f /boot/config/plugins/&name;/config.json ]; then
+            cp /boot/config/plugins/&name;/config.json.sample /boot/config/plugins/&name;/config.json;
             fi;
 
             mkdir -p &plgPATH;/logs;

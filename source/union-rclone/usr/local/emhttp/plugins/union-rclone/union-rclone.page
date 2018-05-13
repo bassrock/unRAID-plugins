@@ -1,6 +1,6 @@
 Menu="Utilities"
 Title="rclone-union"
-Icon="rclone.png"
+Icon="union-rclone.png"
 ---
 <?PHP
 /* Copyright 2005-2016, Lime Technology
@@ -15,8 +15,6 @@ Icon="rclone.png"
  */
 ?>
 > Use this page to make changes to your `rclone.conf` file as well as the different included scripts.
->
-> To setup rclone for the first time execute the command `rclone config` in command line.
 >
 > The **Move to User Scripts** button will move the active script to the User Scripts Plugin overwriting any previous version of the included script.
 
@@ -39,10 +37,11 @@ exec("cp /boot/config/plugins/union-rclone/install/scripts/* /boot/config/plugin
 File to edit:
 <form action="" method="post"> 
 <select name="choice" onchange="this.form.submit();"> 
-<option value="1" <?php echo (isset($_POST['choice']) && $_POST['choice'] == '1') ? 'selected="selected"' : ''; ?>>Config</option>
-<option value="2" <?php echo (isset($_POST['choice']) && $_POST['choice'] == '2') ? 'selected="selected"' : ''; ?>>Rclone Custom Script</option>
-<option value="3" <?php echo (isset($_POST['choice']) && $_POST['choice'] == '3') ? 'selected="selected"' : ''; ?>>Mount Script</option> 
-<option value="4" <?php echo (isset($_POST['choice']) && $_POST['choice'] == '4') ? 'selected="selected"' : ''; ?>>Unmount Script</option>
+<option value="1" <?php echo (isset($_POST['choice']) && $_POST['choice'] == '1') ? 'selected="selected"' : ''; ?>>Rclone Config</option>
+<option value="1" <?php echo (isset($_POST['choice']) && $_POST['choice'] == '2') ? 'selected="selected"' : ''; ?>>CloudPow Config</option>
+<option value="2" <?php echo (isset($_POST['choice']) && $_POST['choice'] == '3') ? 'selected="selected"' : ''; ?>>Rclone Custom Script</option>
+<option value="3" <?php echo (isset($_POST['choice']) && $_POST['choice'] == '4') ? 'selected="selected"' : ''; ?>>Mount Script</option>
+<option value="4" <?php echo (isset($_POST['choice']) && $_POST['choice'] == '5') ? 'selected="selected"' : ''; ?>>Unmount Script</option>
 </select> 
 </form> 
 
@@ -51,19 +50,23 @@ if (isset($_POST['choice'])) {$choice = $_POST['choice'];}
 
 if ($choice == "1") {
     $file = "/boot/config/plugins/union-rclone/.rclone.conf";
-    $defaultfile = "/boot/config/plugins/union-rclone/.rclone.conf";
+    $defaultfile = "/boot/config/plugins/union-rclone/.rclone.conf.sample";
 
 } elseif ($choice == "2") {
+      $file = "/boot/config/plugins/union-rclone/config.json";
+      $defaultfile = "/boot/config/plugins/union-rclone/config.json.sample";
+
+} elseif ($choice == "3") {
     $file = "/boot/config/plugins/union-rclone/scripts/rclone_custom_plugin/script";
     $folderpath = "/boot/config/plugins/union-rclone/scripts/rclone_custom_plugin";
     $defaultfile = "/boot/config/plugins/union-rclone/install/scripts/rclone_custom_plugin/script";
 
-} elseif ($choice == "3") {
+} elseif ($choice == "4") {
     $file = "/boot/config/plugins/union-rclone/scripts/rclone_mount_plugin/script";
     $folderpath = "/boot/config/plugins/union-rclone/scripts/rclone_mount_plugin";
     $defaultfile = "/boot/config/plugins/union-rclone/install/scripts/rclone_mount_plugin/script";
 
-} elseif ($choice == "4") {
+} elseif ($choice == "5") {
     $file = "/boot/config/plugins/union-rclone/scripts/rclone_unmount_plugin/script";
     $folderpath = "/boot/config/plugins/union-rclone/scripts/rclone_unmount_plugin";
     $defaultfile = "/boot/config/plugins/union-rclone/install/scripts/rclone_unmount_plugin/script";
