@@ -3,11 +3,12 @@
 <!DOCTYPE PLUGIN [
         <!ENTITY name      "union-rclone">
         <!ENTITY author    "bassrock">
-        <!ENTITY version   "2018.05.13">
+        <!ENTITY version   "2018.05.13a">
         <!ENTITY launch    "Settings/&name;">
         <!ENTITY gitURL    "https://raw.githubusercontent.com/&author;/unRAID-plugins/master">
         <!ENTITY pluginURL "&gitURL;/plugins/&name;.plg">
         <!ENTITY plgPATH   "/boot/config/plugins/&name;">
+        <!ENTITY pkgPATH   "/boot/config/plugins/&name;/packages">
         <!ENTITY plgNAME   "&name;-&version;-x86_64-1">
         <!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
         <!ENTITY rcloneversion    "v1.41">
@@ -62,18 +63,18 @@
         <MD5>&rcloneMD5;</MD5>
     </FILE>
 
-    <FILE Name="&plgPATH;/unionfs-fuse-0.26-x86_64-1dj.txz" Min="6.2" Run="upgradepkg --install-new">
+    <FILE Name="&pkgPATH;/unionfs-fuse-0.26-x86_64-1dj.txz" Min="6.2" Run="upgradepkg --install-new">
         <URL>&gitURL;/packages/unionfs-fuse-0.26-x86_64-1dj.txz</URL>
         <MD5>f319bb542173f109d69b1e87f0d39a37</MD5>
     </FILE>
 
 
-    <FILE Name="&plgPATH;/python3-3.5.2-x86_64-1.tgz" Min="6.2" Run="upgradepkg --install-new">
+    <FILE Name="&pkgPATH;/python3-3.5.2-x86_64-1.tgz" Min="6.2" Run="upgradepkg --install-new">
         <URL>&gitURL;/packages/python3-3.5.2-x86_64-1.tgz</URL>
         <MD5>d535f46f828f8200e907787ddf9294ed</MD5>
     </FILE>
 
-    <FILE Name="&plgPATH;/git-2.14.1-x86_64-1.txz" Min="6.2" Run="upgradepkg --install-new">
+    <FILE Name="&pkgPATH;/git-2.14.1-x86_64-1.txz" Min="6.2" Run="upgradepkg --install-new">
         <URL>&gitURL;/packages/git-2.14.1-x86_64-1.txz</URL>
         <MD5>9659eaf46710b5514ca804f44b451910</MD5>
     </FILE>
