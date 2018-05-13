@@ -3,7 +3,7 @@
 <!DOCTYPE PLUGIN [
         <!ENTITY name      "union-rclone">
         <!ENTITY author    "bassrock">
-        <!ENTITY version   "2018.05.13b">
+        <!ENTITY version   "2018.05.13c">
         <!ENTITY launch    "Settings/&name;">
         <!ENTITY gitURL    "https://raw.githubusercontent.com/&author;/unRAID-plugins/master">
         <!ENTITY pluginURL "&gitURL;/plugins/&name;.plg">
@@ -85,6 +85,33 @@
     <FILE Run="/bin/bash" Method="install">
         <INLINE>
 
+            #Verify unRAID Version
+            source /etc/unraid-version
+            VER=${version:0:3}
+
+            if [[ $VER == 6.0 ]]; then
+            echo "unRAID version 6.1 or higher is required"
+            exit 1
+            fi
+
+            # Verify and install plugin package
+            sum1=$(/usr/bin/md5sum &plgPATH;/&plgNAME;.txz)
+            sum2=$(/usr/bin/cat &plgPATH;/&plgNAME;.md5)
+            if [ "${sum1:0:32}" != "${sum2:0:32}" ]; then
+            echo "Wrong 'plugin' package md5 hash."
+            rm &plgPATH;/&plgNAME;.txz
+            rm &plgPATH;/&plgNAME;.md5
+            exit 1
+            else
+
+            upgradepkg --install-new &plgPATH;/&plgNAME;.txz
+
+
+            # Cleaning old source files
+            find &plgPATH;/ -type f -iname "&name;*.txz" ! -iname "*&version;*" -delete
+            find &plgPATH;/ -type f -iname "&name;*.md5" ! -iname "*&version;*" -delete
+
+
             if [ -f &plgPATH;/install/ca-certificates.crt ]; then
             rm -f &plgPATH;/install/ca-certificates.crt
             fi;
@@ -119,36 +146,6 @@
             cp &plgPATH;/install/scripts/* &plgPATH;/scripts/ -R -n;
 
             mkdir -p /mnt/disks/;
-
-
-
-
-            #Verify unRAID Version
-            source /etc/unraid-version
-            VER=${version:0:3}
-
-            if [[ $VER == 6.0 ]]; then
-            echo "unRAID version 6.1 or higher is required"
-            exit 1
-            fi
-
-            # Verify and install plugin package
-            sum1=$(/usr/bin/md5sum &plgPATH;/&plgNAME;.txz)
-            sum2=$(/usr/bin/cat &plgPATH;/&plgNAME;.md5)
-            if [ "${sum1:0:32}" != "${sum2:0:32}" ]; then
-            echo "Wrong 'plugin' package md5 hash."
-            rm &plgPATH;/&plgNAME;.txz
-            rm &plgPATH;/&plgNAME;.md5
-            exit 1
-            else
-
-            upgradepkg --install-new &plgPATH;/&plgNAME;.txz
-
-
-            # Cleaning old source files
-            find &plgPATH;/ -type f -iname "&name;*.txz" ! -iname "*&version;*" -delete
-            find &plgPATH;/ -type f -iname "&name;*.md5" ! -iname "*&version;*" -delete
-
 
             cd $plgPATH;/cloudpow
             python3 -m pip install -r requirements.txt
