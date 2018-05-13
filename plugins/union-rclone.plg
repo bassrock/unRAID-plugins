@@ -3,7 +3,7 @@
 <!DOCTYPE PLUGIN [
         <!ENTITY name      "union-rclone">
         <!ENTITY author    "bassrock">
-        <!ENTITY version   "2018.05.12">
+        <!ENTITY version   "2018.05.12a">
         <!ENTITY launch    "Settings/&name;">
         <!ENTITY gitURL    "https://raw.githubusercontent.com/&author;/unRAID-plugins/master">
         <!ENTITY pluginURL "&gitURL;/plugins/&name;.plg">
@@ -82,34 +82,34 @@
     <FILE Run="/bin/bash" Method="install">
         <INLINE>
 
-            if [ -f /boot/config/plugins/&name;/install/ca-certificates.crt ]; then
-            rm -f /boot/config/plugins/&name;/install/ca-certificates.crt
+            if [ -f &plgPATH;/install/ca-certificates.crt ]; then
+            rm -f &plgPATH;/install/ca-certificates.crt
             fi;
-            curl -o /boot/config/plugins/&name;/install/ca-certificates.crt
+            curl -o &plgPATH;/install/ca-certificates.crt
             https://raw.githubusercontent.com/bagder/ca-bundle/master/ca-bundle.crt
 
-            if [ -d /boot/config/plugins/&name;/install/rclone-v*/ ]; then
-            rm -rf /boot/config/plugins/&name;/install/rclone-v*/
+            if [ -d &plgPATH;/install/rclone-v*/ ]; then
+            rm -rf &plgPATH;/install/rclone-v*/
             fi;
 
-            rm -f $(ls /boot/config/plugins/&name;/install/rclone*.zip 2>/dev/null | grep -v '&rcloneversion;')
+            rm -f $(ls &plgPATH;/install/rclone*.zip 2>/dev/null | grep -v '&rcloneversion;')
 
-            unzip /boot/config/plugins/&name;/install/rclone-&rcloneversion;.zip -d /boot/config/plugins/&name;/install/
+            unzip &plgPATH;/install/rclone-&rcloneversion;.zip -d &plgPATH;/install/
 
-            cp /boot/config/plugins/&name;/install/rclone-v*/rclone /usr/sbin/rcloneorig
+            cp &plgPATH;/install/rclone-v*/rclone /usr/sbin/rcloneorig
             chown root:root /usr/sbin/rcloneorig
             chmod 755 /usr/sbin/rcloneorig
 
             mkdir -p /etc/ssl/certs/
-            cp /boot/config/plugins/&name;/install/ca-certificates.crt /etc/ssl/certs/
+            cp &plgPATH;/install/ca-certificates.crt /etc/ssl/certs/
 
             if [ ! -f /boot/config/plugins/&name;/.rclone.conf ]; then
             touch /boot/config/plugins/&name;/.rclone.conf;
             fi;
 
-            mkdir -p /boot/config/plugins/&name;/logs;
-            mkdir -p /boot/config/plugins/&name;/scripts;
-            cp /boot/config/plugins/&name;/install/scripts/* /boot/config/plugins/&name;/scripts/ -R -n;
+            mkdir -p &plgPATH;/logs;
+            mkdir -p &plgPATH;/scripts;
+            cp &plgPATH;/install/scripts/* &plgPATH;/scripts/ -R -n;
 
             mkdir -p /mnt/disks/;
 
@@ -133,7 +133,7 @@
             &plgPATH;/&plgNAME;.md5
             exit 1
             else
-            count=`ls -1 /boot/config/plugins/NerdPack/packages/*.txz 2>/dev/null | wc -l`
+            count=`ls -1 &plgPATH;/packages/*.txz 2>/dev/null | wc -l`
             if [ $count != 0 ]; then
             if [ ! -d &plgPATH;/packages/6.1 ]; then
             mkdir -p &plgPATH;/packages/6.1
@@ -149,7 +149,7 @@
             #check for previous version
             OLD=$(echo | awk "{print ${VER} - 0.1}")
             if [ -d &plgPATH;/packages/${OLD} ]; then
-            count2=`ls -1 /boot/config/plugins/NerdPack/packages/${OLD}/*.txz 2>/dev/null | wc -l`
+            count2=`ls -1 &plgPATH;/packages/${OLD}/*.txz 2>/dev/null | wc -l`
             if [ $count2 != 0 ]; then
             echo "Copying package files..."
             cp &plgPATH;/packages/${OLD}/* &plgPATH;/packages/${VER}/
@@ -158,7 +158,7 @@
             #check for two versions ago
             OLD2=$(echo | awk "{print ${VER} - 0.2}")
             if [ -d &plgPATH;/packages/${OLD2} ]; then
-            count3=`ls -1 /boot/config/plugins/NerdPack/packages/${OLD2}/*.txz 2>/dev/null | wc -l`
+            count3=`ls -1 &plgPATH;/packages/${OLD2}/*.txz 2>/dev/null | wc -l`
             if [ $count3 != 0 ]; then
             echo "Copying package files..."
             cp &plgPATH;/packages/${OLD2}/* &plgPATH;/packages/${VER}/
@@ -179,7 +179,7 @@
             echo "-----------------------------------------------------------"
             echo " &name; has been installed."
             echo " This plugin requires Dynamix webGui to operate"
-            echo " Copyright 2016-2017, &author;, eschultz"
+            echo " Copyright 2018, &author;"
             echo " Version: &version;"
             echo "-----------------------------------------------------------"
             echo ""
@@ -225,8 +225,9 @@
             rm -rf /usr/local/emhttp/plugins/&name; \
             /var/state/&name;
 
-            rm -rf /boot/config/plugins/&name;/install
+            rm -rf &plgPATH;/install
             rm -f /usr/sbin/rclone;
+            rm -f /usr/sbin/rcloneorig;
             rm -f /etc/ssl/certs/ca-certificates.crt
 
             removepkg unionfs-fuse-0.26-x86_64-1dj >/dev/null
