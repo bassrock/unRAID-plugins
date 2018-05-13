@@ -85,8 +85,8 @@
             fi;
 
             mkdir -p /boot/config/plugins/&name;/logs;
-            mkdir -p /boot/config/plugins/rclone/scripts;
-            cp /boot/config/plugins/rclone/install/scripts/* /boot/config/plugins/rclone/scripts/ -R -n;
+            mkdir -p /boot/config/plugins/union-rclone/scripts;
+            cp /boot/config/plugins/union-rclone/install/scripts/* /boot/config/plugins/union-rclone/scripts/ -R -n;
 
             mkdir -p /mnt/disks/;
 
