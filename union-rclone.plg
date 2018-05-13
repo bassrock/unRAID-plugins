@@ -12,7 +12,7 @@
         <!ENTITY rcloneBundleURL    "&repo;/archive/rclone-&rcloneBundleVersion;-x86_64-1.txz">
         <!ENTITY rcloneversion    "v1.41">
         <!ENTITY rclonefile    "rclone-&rcloneversion;-linux-amd64">
-        <!ENTITY rcloneurl        "http://downloads.rclone.org/&rclonefile;.zip">
+        <!ENTITY rcloneurl        "http://downloads.rclone.org/&rcloneversion;/&rclonefile;.zip">
         <!ENTITY rcloneMD5            "deea5bde153f1e53870c87785b50d8d4">
         <!ENTITY rcloneMD5bundle        "3a2125ad6e70ffbd1f8cad24e27035b2">
         ]>
