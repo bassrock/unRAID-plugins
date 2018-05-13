@@ -3,7 +3,7 @@
 <!DOCTYPE PLUGIN [
         <!ENTITY name      "union-rclone">
         <!ENTITY author    "bassrock">
-        <!ENTITY version   "2018.05.12e">
+        <!ENTITY version   "2018.05.12f">
         <!ENTITY launch    "Settings/&name;">
         <!ENTITY gitURL    "https://raw.githubusercontent.com/&author;/unRAID-plugins/master">
         <!ENTITY pluginURL "&gitURL;/plugins/&name;.plg">
@@ -73,6 +73,10 @@
         <MD5>d535f46f828f8200e907787ddf9294ed</MD5>
     </FILE>
 
+    <FILE Name="&plgPATH;/git-2.14.1-x86_64-1.txz" Min="6.2" Run="upgradepkg --install-new">
+        <URL>&gitURL;/packages/git-2.14.1-x86_64-1.txz</URL>
+        <MD5>9659eaf46710b5514ca804f44b451910</MD5>
+    </FILE>
 
     <!--
     Install script.
@@ -141,7 +145,8 @@
             find &plgPATH;/ -type f -iname "&name;*.md5" ! -iname "*&version;*" -delete
 
 
-            cd $plgPATH;
+            cd $plgPATH;/cloudpow
+            python3 -m pip install -r requirements.txt
 
             echo ""
             echo "-----------------------------------------------------------"
