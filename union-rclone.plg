@@ -58,15 +58,15 @@
     </FILE>
 
     <FILE Name="&emhttp;/copy.php">
-        <URL>&repo;/source&emhttp;/copy.php</URL>
+        <URL>&repo;/source/union-rclone&emhttp;/copy.php</URL>
     </FILE>
 
     <FILE Name="&emhttp;/README.md">
-        <URL>&repo;/source&emhttp;/README.md</URL>
+        <URL>&repo;/source/union-rclone&emhttp;/README.md</URL>
     </FILE>
 
     <FILE Name="&emhttp;/union-rclone.page">
-        <URL>&repo;/source&emhttp;/union-rclone.page</URL>
+        <URL>&repo;/source/union-rclone&emhttp;/union-rclone.page</URL>
     </FILE>
 
 
