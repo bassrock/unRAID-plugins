@@ -6,7 +6,7 @@
         <!ENTITY version        "2018.05.10">
         <!ENTITY bundleversion  "2018.05.10">
         <!ENTITY launch            "Settings/union-rclone">
-        <!ENTITY repo           "https://raw.githubusercontent.com/&author;/unRAID-plugins/master">
+        <!ENTITY repo           "https://raw.githubusercontent.com/&author;/unRaid-Union/master">
         <!ENTITY pluginURL        "&repo;/plugin/union-rclone.plg">
         <!ENTITY rcloneBundleVersion    "2017.01.05">
         <!ENTITY rcloneBundleURL    "&repo;/archive/rclone-&rcloneBundleVersion;-x86_64-1.txz">
