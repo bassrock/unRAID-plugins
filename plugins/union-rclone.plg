@@ -63,7 +63,7 @@
     </FILE>
 
     <FILE Name="&plgPATH;/unionfs-fuse-0.26-x86_64-1dj.txz" Min="6.2" Run="upgradepkg --install-new">
-        <URL>&gitURL;/packages/6.2/unionfs-fuse-0.26-x86_64-1dj.txz</URL>
+        <URL>&gitURL;/packages/unionfs-fuse-0.26-x86_64-1dj.txz</URL>
         <MD5>f319bb542173f109d69b1e87f0d39a37</MD5>
     </FILE>
 
