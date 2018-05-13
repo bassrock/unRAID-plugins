@@ -6,3 +6,21 @@ scope = drive
 root_folder_id =
 service_account_file =
 token =
+
+[google-cryptic]
+type = crypt
+remote = google:/Media
+filename_encryption = obfuscate
+directory_name_encryption = true
+password =
+password2 =
+
+[google-cache]
+type = cache
+remote = google-cryptic:
+plex_url =
+plex_username =
+plex_password =
+chunk_size =
+info_age =
+chunk_total_size =

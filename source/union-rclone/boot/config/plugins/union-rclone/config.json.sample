@@ -19,7 +19,7 @@
   },
   "remotes": {
     "google": {
-      "hidden_remote": "google:",
+      "hidden_remote": "google-cryptic:",
       "rclone_excludes": [
         "**partial~",
         "**_HIDDEN~",
@@ -42,9 +42,9 @@
         }
       },
       "remove_empty_dir_depth": 2,
-      "sync_remote": "google:/Media",
-      "upload_folder": "/mnt/user/Media",
-      "upload_remote": "google:/Media"
+      "sync_remote": "google-cryptic:/Media",
+      "upload_folder": "/mnt/user/media",
+      "upload_remote": "google-cryptic:"
     }
   },
   "syncer": {

@@ -9,7 +9,7 @@
 mntpoint="/mnt/disks/google"
 
 # Remote share
-remoteshare="google:/Media"
+remoteshare="google-cache:"
 
 joined="/mnt/disks/media"
 
