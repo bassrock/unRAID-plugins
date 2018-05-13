@@ -45,7 +45,7 @@
 
 
     <FILE Name="&plugin;/union-rclone.png">
-        <URL>&repo;/union-rclone</URL>
+        <URL>&repo;/union-rclone.png</URL>
     </FILE>
 
 
