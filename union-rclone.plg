@@ -37,22 +37,21 @@
         <MD5>f319bb542173f109d69b1e87f0d39a37</MD5>
     </FILE>
 
-
     <!--
-    Get the rclone zip.
-    -->
-    <FILE Name="/boot/config/plugins/&name;/install/rclone-&rcloneversion;.zip">
-        <URL>&rcloneurl;</URL>
-        <MD5>&rcloneMD5;</MD5>
-    </FILE>
-
-
-    <!--
-    Get bundle.
+    Install rclone bundle
     -->
     <FILE Name="/boot/config/plugins/&name;/install/rclone-&rcloneBundleVersion;-bundle.txz" Run="upgradepkg --install-new">
         <URL>&rcloneBundleURL;</URL>
         <MD5>&rcloneMD5bundle;</MD5>
+    </FILE>
+
+
+    <!--
+    Install the latest rclone
+    -->
+    <FILE Name="/boot/config/plugins/&name;/install/rclone-&rcloneversion;.zip">
+        <URL>&rcloneurl;</URL>
+        <MD5>&rcloneMD5;</MD5>
     </FILE>
 
     <!--
