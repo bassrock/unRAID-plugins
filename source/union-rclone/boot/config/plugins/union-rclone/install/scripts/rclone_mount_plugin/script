@@ -5,13 +5,11 @@
 # The script will create a folder at the mountpoint                          |
 #----------------------------------------------------------------------------
 
-# Local mountpoint
-mntpoint="/mnt/disks/google"     # It's recommended to mount your remote share in /mnt/disks/subfolder -
-                                # This is the only way to make it accesible to dockers
+# Google mountpoint
+mntpoint="/mnt/disks/google"
 
 # Remote share
-remoteshare="google:/Media" 	# If you want to share the root of your remote share you have to
-                                # define it as "remote:" eg. "acd:" or "gdrive:" 
+remoteshare="google:/Media"
 
 joined="/mnt/disks/media"
 
@@ -20,6 +18,6 @@ share="/mnt/user/media"
 #---------------------------------------------------------------------------------------------------------------------
 
 mkdir -p $mntpoint
-mkdir -p joined
-rclone mount --max-read-ahead 1024k --allow-other $remoteshare $mntpoint &
-unionfs -o cow,allow_other,uid=99,gid=100 $share=RW:$mntpoint=RO $joined &
+mkdir -p $joined
+rclone mount --max-read-ahead 1024k --uid=99 --gid=100 --daemon --allow-other $remoteshare $mntpoint
+unionfs -o cow,allow_other,uid=99,gid=100 $share=RW:$mntpoint=RO $joined

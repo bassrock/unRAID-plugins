@@ -4,10 +4,12 @@
 #----------------------------------------------------------------------------
 
 # Local mountpoint
-mntpoint="/local/path"
+mntpoint="/mnt/disks/google"
+
+#Joined mountpoint
+joined="/mnt/disks/media"
 
 							
 #---------------------------------------------------------------------------------------------------------------------
-
-
-fusermount -u $mntpoint
+umount -l $joined
+umount -l $mntpoint
