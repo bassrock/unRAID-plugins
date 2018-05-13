@@ -11,6 +11,8 @@
         <!ENTITY rcloneversion    "v1.41">
         <!ENTITY rclonefile    "rclone-&rcloneversion;-linux-amd64">
         <!ENTITY rcloneMD5            "deea5bde153f1e53870c87785b50d8d4">
+        <!ENTITY plugin    "/boot/config/plugins/&name;">
+        <!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
         ]>
 
 <PLUGIN name="&name;"
@@ -70,6 +72,10 @@
             rm -f $(ls /boot/config/plugins/&name;/install/rclone*.txz 2>/dev/null | grep -v '&bundleversion;')
 
             unzip /boot/config/plugins/&name;/install/rclone-&rcloneversion;.zip -d /boot/config/plugins/&name;/install/
+
+            cp /boot/config/plugins/&name;/install/rclone-v*/rclone /usr/sbin/rcloneorig
+            chown root:root /usr/sbin/rcloneorig
+            chmod 755 /usr/sbin/rcloneorig
 
             mkdir -p /etc/ssl/certs/
             cp /boot/config/plugins/&name;/install/ca-certificates.crt /etc/ssl/certs/
@@ -134,9 +140,9 @@
             config=/boot/config/plugins/&name;/.rclone.conf
             logfile=/boot/config/plugins/&name;/logs/rclone-$(date "+%Y%m%d").log
             if [ "$log" = true ] &amp;&amp; [ ${#args[@]} -ge 1 ]; then
-            rclone --config $config "${args[@]}" &gt;&gt; $logfile 2&gt;&amp;1
+            rcloneorig --config $config "${args[@]}" &gt;&gt; $logfile 2&gt;&amp;1
             else
-            rclone --config $config "$@";
+            rcloneorig --config $config "$@";
             fi;
         </INLINE>
     </FILE>
