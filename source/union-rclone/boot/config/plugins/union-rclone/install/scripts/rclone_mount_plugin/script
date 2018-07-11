@@ -9,7 +9,7 @@
 mntpoint="/mnt/disks/google"
 
 # Remote share
-remoteshare="google-cache:"
+remoteshare="google-cryptic:"
 
 joined="/mnt/disks/media"
 
@@ -19,5 +19,5 @@ share="/mnt/user/media"
 
 mkdir -p $mntpoint
 mkdir -p $joined
-rclone mount --max-read-ahead 1024k --uid=99 --gid=100 --daemon --allow-other $remoteshare $mntpoint
+rclone mount --max-read-ahead 1024k --rc --uid=99 --gid=100 --daemon --allow-other $remoteshare $mntpoint
 unionfs -o cow,allow_other,uid=99,gid=100 $share=RW:$mntpoint=RO $joined

@@ -7,6 +7,14 @@ root_folder_id =
 service_account_file =
 token =
 
+[google-cryptic-no-cache]
+type = crypt
+remote = google:/Media
+filename_encryption = obfuscate
+directory_name_encryption = true
+password =
+password2 =
+
 [google-cryptic]
 type = crypt
 remote = google:/Media
