@@ -270,7 +270,7 @@ echo
 echo "Searching for symbolic links:"
 # Get rid of possible pre-existing trouble:
 INST=$(mktemp $TMP/makepkg.XXXXXX)
-find . -type l -printf "%p\t%l\n" | sed 's,^\./,, ; s, ,\\ ,g' | tee $INST
+gfind . -type l -printf "%p\t%l\n" | sed 's,^\./,, ; s, ,\\ ,g' | tee $INST
 if [ ! "$(cat $INST)" = "" ]; then
   echo
   echo "Making symbolic link creation script:"
@@ -317,7 +317,7 @@ if [ ! "$(cat $INST)" = "" ]; then
     fi
     echo
     echo "Removing symbolic links:"
-    find . -type l -exec rm -v {} \;
+    gfind . -type l -exec rm -v {} \;
     echo
     if [ "$UPDATE" = "t" ]; then
       if [ "$PREPEND" = "y" ]; then
@@ -350,8 +350,8 @@ else
   echo
 fi
 if [ "$CHOWN" = "y" ]; then
-  find . -type d -exec chmod -v 755 {} \; 
-  find . -type d -exec chown -v root.root {} \;
+  gfind . -type d -exec chmod -v 755 {} \; 
+  gfind . -type d -exec chown -v root.root {} \;
 fi
 
 # Ensure that the 'root' of the package is chmod 755 because
@@ -359,7 +359,7 @@ fi
 # If it's anything tighter than 755 then bad things happen such as users
 # not being able to login, users already logged in can no longer run commands
 # and so on.
-OLDROOTPERMS="$(find -name . -printf "%m\n")"
+OLDROOTPERMS="$(gfind -name . -printf "%m\n")"
 if [ $OLDROOTPERMS -ne 755 ]; then
   echo "WARNING: $PWD is chmod $OLDROOTPERMS"
   echo "         temporarily changing to chmod 755"
@@ -371,7 +371,7 @@ echo
 rm -f ${TARGET_NAME}/${TAR_NAME}.${EXTENSION}
 
 # HISTORICAL NOTE 2/2018:
-# In the interest of maximizing portability of this script, we'll use find
+# In the interest of maximizing portability of this script, we'll use gfind
 # and sed to create a filelist compatible with tar-1.13, and then use a
 # more modern tar version to create the archive.
 #
@@ -381,10 +381,10 @@ rm -f ${TARGET_NAME}/${TAR_NAME}.${EXTENSION}
 # tar --transform "s,^\./\(.\),\1," --show-transformed-names $ACLS $XATTRS -cvf - . | $COMPRESSOR > ${TARGET_NAME}/${TAR_NAME}.${EXTENSION}
 #
 # Use cpio:
-# find ./ | sed '2,$s,^\./,,' | cpio --quiet -ovHustar > ${TARGET_NAME}/${TAR_NAME}.tar
+# gfind ./ | sed '2,$s,^\./,,' | cpio --quiet -ovHustar > ${TARGET_NAME}/${TAR_NAME}.tar
 
 # Create the package:
-find ./ | sed '2,$s,^\./,,' | tar --no-recursion $ACLS $XATTRS  -T - -cvf - | $COMPRESSOR > ${TARGET_NAME}/${TAR_NAME}.${EXTENSION}
+gfind ./ | sed '2,$s,^\./,,' | tar --no-recursion $ACLS $XATTRS  -T - -cvf - | $COMPRESSOR > ${TARGET_NAME}/${TAR_NAME}.${EXTENSION}
 ERRCODE=$?
 if [ ! $ERRCODE = 0 ]; then
   echo "ERROR:  $COMPRESSOR returned error code $ERRCODE -- makepkg failed."
@@ -392,12 +392,12 @@ if [ ! $ERRCODE = 0 ]; then
 fi
 
 # Warn of zero-length files:
-find . -type f -size 0c | while read file ; do
+gfind . -type f -size 0c | while read file ; do
   echo "WARNING:  zero length file $(echo $file | cut -b3-)"
 done
 
 # Warn of corrupt or empty gzip files:
-find . -type f -name '*.gz' | while read file ; do
+gfind . -type f -name '*.gz' | while read file ; do
   if ! gzip -t $file 1> /dev/null 2> /dev/null ; then
     echo "WARNING:  gzip test failed on $(echo $file | cut -b3-)"
   else
@@ -416,7 +416,7 @@ if [ -d usr/share/info ]; then
   echo "WARNING:  /usr/share/info (with possibly not gzipped info pages) detected"
 fi
 
-if find . | grep site_perl 1> /dev/null ; then
+if gfind . | grep site_perl 1> /dev/null ; then
   echo "WARNING:  site_perl directory detected (this is fine for a local package build)"
 fi
 
