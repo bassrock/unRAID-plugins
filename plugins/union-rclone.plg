@@ -11,9 +11,9 @@
         <!ENTITY pkgPATH   "/boot/config/plugins/&name;/packages">
         <!ENTITY plgNAME   "&name;-&version;-x86_64-1">
         <!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
-        <!ENTITY rcloneversion    "v1.43">
+        <!ENTITY rcloneversion    "v1.44">
         <!ENTITY rclonefile    "rclone-&rcloneversion;-linux-amd64">
-        <!ENTITY rcloneMD5            "f9ea4b7a0646e34c89f8257068eb5271">
+        <!ENTITY rcloneMD5            "24202ba885e12c37d240ed0c3ea09129">
         ]>
 
 
