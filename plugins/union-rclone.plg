@@ -3,7 +3,7 @@
 <!DOCTYPE PLUGIN [
         <!ENTITY name      "union-rclone">
         <!ENTITY author    "bassrock">
-        <!ENTITY version   "2018.11.22">
+        <!ENTITY version   "2018.12.09">
         <!ENTITY launch    "Settings/&name;">
         <!ENTITY gitURL    "https://raw.githubusercontent.com/&author;/unRAID-plugins/master">
         <!ENTITY pluginURL "&gitURL;/plugins/&name;.plg">
@@ -11,9 +11,9 @@
         <!ENTITY pkgPATH   "/boot/config/plugins/&name;/packages">
         <!ENTITY plgNAME   "&name;-&version;-x86_64-1">
         <!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
-        <!ENTITY rcloneversion    "v1.44">
+        <!ENTITY rcloneversion    "v1.45">
         <!ENTITY rclonefile    "rclone-&rcloneversion;-linux-amd64">
-        <!ENTITY rcloneMD5            "24202ba885e12c37d240ed0c3ea09129">
+        <!ENTITY rcloneMD5            "152207345f45e41f2142acc04bbf3ece">
         ]>
 
 
